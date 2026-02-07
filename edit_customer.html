@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="card form-card">
+    <h2>Edit customer</h2>
+    <form method="post">
+      <label>Name</label>
+      <input name="name" value="{{ customer.name }}" required>
+      <label>Company</label>
+      <input name="company" value="{{ customer.company }}">
+      <label>Email</label>
+      <input name="email" type="email" value="{{ customer.email }}">
+      <label>Phone</label>
+      <input name="phone" value="{{ customer.phone }}">
+      <label>Status</label>
+      <select name="status">
+        <option {% if customer.status=='Lead' %}selected{% endif %}>Lead</option>
+        <option {% if customer.status=='Contacted' %}selected{% endif %}>Contacted</option>
+        <option {% if customer.status=='Converted' %}selected{% endif %}>Converted</option>
+      </select>
+      <div class="form-actions">
+        <button class="btn" type="submit">Update</button>
+        <a class="btn btn-ghost" href="/dashboard">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="page-header">
+    <h2>Follow-ups for {{ customer.name }}</h2>
+    <div>
+      <a class="btn btn-ghost" href="/dashboard">Back</a>
+    </div>
+  </div>
+
+  <div class="card form-card">
+    <h3>Add follow-up</h3>
+    <form method="post">
+      <label>Note</label>
+      <textarea name="note" rows="3" required></textarea>
+      <label>Date</label>
+      <input name="date" type="date">
+      <div class="form-actions">
+        <button class="btn" type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>History</h3>
+    <ul class="follow-list">
+      {% for f in followups %}
+        <li>
+          <div class="follow-note">{{ f.note }}</div>
+          <div class="follow-meta">{{ f.followup_date or 'No date' }}</div>
+          <form method="post" action="/delete_followup/{{ f.id }}" onsubmit="return confirm('Delete follow-up?')">
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </li>
+      {% else %}
+        <li>No follow-ups yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+{% endblock %}

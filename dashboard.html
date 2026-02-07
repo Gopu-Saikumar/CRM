@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="page-header">
+    <h2>Customers</h2>
+    <div>
+      <a class="btn" href="/add_customer">Add Customer</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in customers %}
+          <tr>
+            <td>{{ c.name }}</td>
+            <td>{{ c.company }}</td>
+            <td>{{ c.email }}</td>
+            <td>{{ c.phone }}</td>
+            <td>{{ c.status }}</td>
+            <td class="actions">
+              <a class="btn btn-sm" href="/followups/{{ c.id }}">Follow-ups</a>
+              <a class="btn btn-sm" href="/edit_customer/{{ c.id }}">Edit</a>
+              <form method="post" action="/delete_customer/{{ c.id }}" style="display:inline" onsubmit="return confirm('Delete customer?')">
+                <button class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="6">No customers yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}
